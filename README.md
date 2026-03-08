@@ -1,6 +1,3 @@
-Aqui está uma versão revisada, corrigida e mais polida do arquivo **README.md**, com pequenos ajustes de formatação, correção de erros de markdown (como blocos de código sem linguagem especificada), melhoria na legibilidade e adição de alguns detalhes úteis para quem for clonar o projeto no GitHub.
-
-```markdown
 # AutoReport - Geração e Envio Automático de Relatórios Semanais
 
 Script em Python que automatiza a criação de relatórios semanais a partir de planilhas Excel.  
@@ -22,10 +19,8 @@ Perfeito para relatórios de vendas, indicadores de desempenho, controle de prod
 
 - Python 3.8 ou superior
 - Bibliotecas Python:
-
-```bash
+- 
 pip install pandas openpyxl schedule
-```
 
 > **Nota:** `openpyxl` é necessário para ler e escrever arquivos `.xlsx`
 
@@ -46,19 +41,15 @@ Se as colunas `Categoria` e `Valor` não existirem, o relatório será apenas a 
 
 1. **Ajuste o nome do arquivo de entrada** (se necessário):
 
-```python
 df = pd.read_excel('dados_semanais.xlsx', sheet_name='Sheet1')
-```
 
 2. **Configure as credenciais de e-mail** (obrigatório):
 
-```python
 remetente    = 'seu_email@gmail.com'
 senha        = 'sua_senha_ou_app_password'
 destinatario = 'equipe@empresa.com'
 servidor_smtp = 'smtp.gmail.com'   # ou smtp.office365.com, smtp.mail.yahoo.com, etc.
 porta        = 587
-```
 
 > **Atenção – Gmail / Google Workspace**  
 > Não use a senha normal da conta.  
@@ -67,36 +58,28 @@ porta        = 587
 
 3. **Ajuste o agendamento** (opcional):
 
-```python
 # Padrão: toda segunda-feira às 09:00
 schedule.every().monday.at("09:00").do(gerar_relatorio_e_enviar)
 
 # Exemplos alternativos:
 # schedule.every().friday.at("17:30").do(...)
 # schedule.every().day.at("08:00").do(...)          # todos os dias
-```
 
 ## Como Executar
 
 ### Teste rápido (manual)
 
-```bash
 python main.py
-```
 
 Ou chame a função diretamente no código para testar:
 
-```python
 gerar_relatorio_e_enviar()
-```
 
 ### Modo agendado (produção)
 
 Deixe o script rodando continuamente:
 
-```bash
 python main.py
-```
 
 Recomendações para manter rodando 24/7:
 
@@ -108,13 +91,10 @@ Recomendações para manter rodando 24/7:
 
 ### Nome dinâmico do relatório
 
-```python
 arquivo_relatorio = f'relatorio_semanal_{hoje.strftime("%Y-%m-%d")}.xlsx'
-```
 
 ### Agregação mais completa
 
-```python
 relatorio = df_semanal.groupby('Categoria')['Valor'].agg(
     Soma='sum',
     Média='mean',
@@ -122,15 +102,12 @@ relatorio = df_semanal.groupby('Categoria')['Valor'].agg(
     Máximo='max',
     Mínimo='min'
 ).reset_index()
-```
 
 ### Envio para múltiplos destinatários
 
-```python
 destinatarios = ['joao@empresa.com', 'maria@empresa.com', 'equipe@empresa.com']
 msg['To'] = ", ".join(destinatarios)
 server.sendmail(remetente, destinatarios, msg.as_string())
-```
 
 ## Próximas Melhorias Sugeridas
 
@@ -146,14 +123,3 @@ server.sendmail(remetente, destinatarios, msg.as_string())
 [MIT License](LICENSE)
 
 Feito com ♥ por quem cansou de gerar relatório manualmente toda segunda-feira.
-
-Boas automações!
-```
-
-### Dicas finais para o GitHub
-
-- Nome do arquivo: `README.md` (obrigatoriamente maiúsculo assim)
-- Salve na raiz do repositório
-- Se o script principal se chamar `main.py`, `autoreport.py` ou outro nome, ajuste as instruções de execução no README para refletir o nome real do arquivo.
-
-Se quiser adicionar badges (Python version, license, etc.) ou uma seção "Como contribuir", posso incluir também. Boa sorte com o repositório, Tiago!
